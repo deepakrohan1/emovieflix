@@ -1,0 +1,13 @@
+.header{
+    background: linear-gradient(45deg,firebrick, whitesmoke);
+    padding:2%;
+    color: #FFFFFF;
+
+
+}
+
+.body{
+    background: black;
+    width: 100%;
+    hight:100%;
+}
