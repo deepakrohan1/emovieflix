@@ -5,3 +5,16 @@
     width:100%;
     max-height: 600px !important;
 }
+.carousel-caption{
+    top:50%;
+    transform: translateY(-50%);
+    bottom: initial;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+}
+#searchForm {
+    position:absolute;
+    top:5%;
+}
