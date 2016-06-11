@@ -59,8 +59,8 @@
             Cras arcu massa, pretium sit amet dapibus vel, aliquam eu purus. Ut condimentum gravida laoreet. </p>
 
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" onclick="location.href='signup.html';" class="btn btn-primary btn-lg">Register Now</button>
-            <button type="button" onclick="location.href='login.html';" class="btn btn-secondary btn-lg p-l-3 p-r-3">Login</button>
+            <button type="button" data-toggle="modal" data-target="#signUpModal" class="btn btn-primary btn-lg">Register Now</button>
+            <button type="button"  data-toggle="modal" data-target="#myModal" class="btn btn-secondary btn-lg p-l-3 p-r-3">Login</button>
 
         </div>
     </div>
@@ -442,6 +442,99 @@
     <hr/>
 </div>
 <!--/About-->
+
+<!--Login Modal-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Login</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row ">
+                        <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 form-control-label">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row col-xs-offset-2 m-t-3 ">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary b">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--EndLoginModal-->
+<!--SignupModal-->
+
+<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="signUpModalLabel"> Sign Up </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 form-control-label">Name</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 form-control-label">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 form-control-label">Confirm Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-secondary">Sign Up</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--EndSignup-->
 
 <!--End of the Carousel for movies-->
 <div class="container-fluid col-sm-12" >
