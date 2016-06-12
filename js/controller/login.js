@@ -8,13 +8,26 @@ angular.module("movieflix").controller('LoginController', LoginController);
 function LoginController($scope) {
     var loginVm = this;
     loginVm.userCreation = userCreation;
+    loginVm.userAuth = userAuth;
 
-    console.dir("Inside Login: "+loginVm);
-    
+
     
     function userCreation(){
         console.log("Inside User Creation");
-        console.log($scope.user);
+        console.log(loginVm.user);
+    }
+
+    function userAuth(){
+        console.log("Inside User Auth");
+
+        console.dir(loginVm.user);
+        if(loginVm.user != undefined){
+
+        }else {
+            var errorElement = document.getElementById('errorMsg');
+            errorElement.innerHTML = "The text can't be empty";
+        }
+
     }
 
 }
