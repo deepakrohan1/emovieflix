@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="movieflix">
 <head>
     <!--Required bootstrap files to get started-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
@@ -9,6 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
             integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7"
             crossorigin="anonymous"></script>
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.9/angular.js" data-semver="1.4.9"></script>
+
     <title>
         MovieFlix
     </title>
@@ -60,7 +62,7 @@
 
         <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" data-toggle="modal" data-target="#signUpModal" class="btn btn-primary btn-lg">Register Now</button>
-            <button type="button"  data-toggle="modal" data-target="#myModal" class="btn btn-secondary btn-lg p-l-3 p-r-3">Login</button>
+            <button type="button"  data-toggle="modal" data-target="#loginModal" class="btn btn-secondary btn-lg p-l-3 p-r-3">Login</button>
 
         </div>
     </div>
@@ -114,6 +116,8 @@
     </div>
 </div>
 <!--Recent Arrivals-->
+{{3+4}}
+
 <div class="container-fluid col-sm-12 m-t-2">
     <h1 class="display-4">Recent Arrivals</h1>
     <div class="row m-t-2">
@@ -444,14 +448,14 @@
 <!--/About-->
 
 <!--Login Modal-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div ng-controller="LoginController as loginVm" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Login</h4>
+                <h4 class="modal-title" id="loginModalT">Login</h4>
             </div>
             <div class="modal-body">
                 <form>
@@ -469,7 +473,7 @@
                     </div>
                     <div class="form-group row col-xs-offset-2 m-t-3 ">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary b">Login</button>
+                            <button type="submit" class="btn btn-primary b" >Login</button>
                         </div>
                     </div>
                 </form>
@@ -484,7 +488,7 @@
 <!--EndLoginModal-->
 <!--SignupModal-->
 
-<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div ng-controller="LoginController as loginVm" class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -496,32 +500,32 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 form-control-label">Name</label>
+                        <label for="nameOfUser" class="col-sm-2 form-control-label">Name</label>
                         <div class="col-sm-6">
-                            <input type="email" class="form-control" id="name" placeholder="Name">
+                            <input ng-required="true" ng-modal="user.name" class="form-control" id="nameOfUser" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+                        <label for="emailOfUser" class="col-sm-2 form-control-label">Email</label>
                         <div class="col-sm-6">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            <input type="email" class="form-control" ng-modal="user.email" id="emailOfUser" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword3" class="col-sm-2 form-control-label">Password</label>
+                        <label for="password" class="col-sm-2 form-control-label">Password</label>
                         <div class="col-sm-6">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="password" class="form-control" ng-modal="user.password" id="password" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword3" class="col-sm-2 form-control-label">Confirm Password</label>
+                        <label for="confirmPassword" class="col-sm-2 form-control-label">Confirm Password</label>
                         <div class="col-sm-6">
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Confirm Password">
+                            <input type="password" class="form-control" ng-model="user.cPassword" id="confirmPassword" placeholder="Confirm Password">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-secondary">Sign Up</button>
+                            <button type="submit" class="btn btn-secondary" ng-click="loginVm.userCreation()">Sign Up</button>
                         </div>
                     </div>
                 </form>
@@ -556,5 +560,23 @@
     </div>
     <!--/footer-->
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAkyAjVzVawcmQSrGx0vxsP-FiWtPal0Zk",
+        authDomain: "project-7740001562466812153.firebaseapp.com",
+        databaseURL: "https://project-7740001562466812153.firebaseio.com",
+        storageBucket: "",
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="js/validation.js"></script>
+<!--Start of Angular Scripts notice the order-->
+<script src="js/app.js"></script>
+<script src="js/controller/login.js"></script>
+COPY
+
 </body>
 </html>
