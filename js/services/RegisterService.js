@@ -5,24 +5,65 @@
 angular.module("movieflix")
         .factory("RegisterService",RegisterService);
 
-function RegisterService() {
+    var ref = new Firebase("https://resplendent-heat-5158.firebaseIO.com");
+
+function RegisterService($firebaseObject) {
+    
+    self.getCurrentAuthInfo = function () {
+        var authData = ref.getAuth();
+        if (authData) {
+            // console.log("User " + authData.uid + " is logged in with " + authData.provider);
+            return authData.password.email;
+            // console.log(authData.password.email);
+        } else {
+            console.log("User is logged out");
+        }
+        
+    }
+    
+    //Check if the user is logged in
+    self.authDataCallback = function (authData) {
+        if (authData) {
+            console.log("User " + authData.uid + " is logged in with " + authData.provider);
+        } else {
+            console.log("User is logged out");
+        }
+    }
+
+    //Register an User to Server
     self.addUserToServer = function (user) {
         console.dir("Hey:"+user.email);
 
-    //    TODO Adding User to server
 
-        firebase.auth().createUserWithEmailAndPassword(user.email,user.password).catch(function(error){
+        ref.createUser({
+            email    : user.email,
+            password : user.password
+        }, function(error, userData) {
+            if (error) {
+                console.log("Error creating user:", error);
+            } else {
+                console.log("Successfully created user account with uid:", userData.uid);
+            }
+        });
+    }
 
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if(errorCode != null){
-                alert(errorMessage);
+    //Login the registered User
+    self.authenticateUser = function(user){
+        console.dir("Login User: "+user.email);
+
+
+        ref.authWithPassword({
+            email    : user.email,
+            password : user.password
+        }, function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
             }
 
-            console.log(errorCode +":" +errorMessage);
-        })
-
-
+            ref.onAuth(authDataCallback);
+        });
     }
 
 
