@@ -499,17 +499,25 @@
                                    class="col-sm-2 form-control-label">Password</label>
                             <div class="col-sm-6">
                                 <input type="password" ng-model="loginVm.user.password"
+                                       name="passwordOfUser"
                                        required
+                                       ng-minlength="6"
                                        class="form-control" id="passwordAuth" placeholder="Password">
                             </div>
                         </div>
                         <div ng-messages="loginForm.emailOfUserAuth.$dirty && loginForm.emailOfUserAuth.$error">
-                            <p ng-message="required" class="alert alert-danger" id="errorMsg" role="alert">Your Email is required.</p>
-                            <p ng-message="minlength" class="alert alert-danger" role="alert">XXl is required.</p>
+                            <p ng-message="required" class="alert alert-danger" role="alert">Your Email is required.</p>
+                            <p ng-message="minlength" class="alert alert-danger" role="alert">It should be 5 chars long.</p>
                         </div>
+
+                        <div ng-messages="loginForm.passwordOfUser.$dirty && loginForm.passwordOfUser.$error">
+                            <p ng-message="required" class="alert alert-danger"  role="alert">Enter the password</p>
+                            <p ng-message="minlength" class="alert alert-danger" role="alert">It should be 6 chars long.</p>
+                        </div>
+
                         <div class="form-group row col-xs-offset-2 m-t-3 ">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary b" ng-click="loginVm.userAuth()">Login
+                                <button ng-disabled="loginForm.$invalid" type="submit" class="btn btn-primary b" ng-click="loginVm.userAuth()">Login
                                 </button>
                             </div>
                         </div>
@@ -563,7 +571,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-secondary" ng-click="loginVm.userCreation()">Sign
+                                <button type="submit" class="btn btn-secondary" ng-click="loginVm.hello()">Sign
                                     Up
                                 </button>
                             </div>
@@ -612,6 +620,7 @@
 <!--Start of Angular Scripts notice the order-->
 <script src="js/app.js"></script>
 <script src="js/controller/login.js"></script>
+<script src="js/services/RegisterService.js"></script>
 COPY
 
 </body>

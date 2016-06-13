@@ -2,15 +2,19 @@
  * Created by rohan on 6/12/16.
  */
 (function(){
-angular.module("movieflix").controller('LoginController', LoginController);
+angular.module("movieflix").controller('LoginController', ['$scope','RegisterService', LoginController]);
 
 
-function LoginController($scope) {
+function LoginController($scope, RegisterService) {
     var loginVm = this;
     loginVm.userCreation = userCreation;
     loginVm.userAuth = userAuth;
 
+    console.log(RegisterService);
 
+    loginVm.hello = function () {
+        RegisterService.addUserToServer(loginVm.user);
+    }
     
     function userCreation(){
         console.log("Inside User Creation");
@@ -21,14 +25,11 @@ function LoginController($scope) {
         console.log("Inside User Auth");
 
         console.dir(loginVm.user);
-        if(loginVm.user != undefined){
 
-        }else {
-            var errorElement = document.getElementById('errorMsg');
-            errorElement.innerHTML = "The text can't be empty";
-        }
 
     }
+
+
 
 }
 })();
