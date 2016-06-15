@@ -47,6 +47,7 @@
 
 <div class="container-fluid col-sm-12">
 <!--Jumbotron-->
+    <div ng-controller="LoginController as loginVm" ng-hide="authUser">
 <div class="jumbotron jumbotron-fluid bg-info">
     <div class="container text-sm-center p-t-3">
         <h1 class="display-2">SignUp Today..</h1>
@@ -66,6 +67,7 @@
     </div>
 </div>
 </div>
+    </div>
 
 <!--/Jumbotron-->
 <div ng-controller="LoginController as loginVm">
