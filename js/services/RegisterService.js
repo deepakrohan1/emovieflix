@@ -3,11 +3,17 @@
  */
 (function(){
 angular.module("movieflix")
-        .factory("RegisterService",RegisterService);
+        .service("RegisterService",RegisterService);
 
     var ref = new Firebase("https://resplendent-heat-5158.firebaseIO.com");
 
 function RegisterService($firebaseObject) {
+    var self = this;
+
+    self.logUserOut = function () {
+        console.log("logging out");
+        return ref.unauth();
+    }
     
     self.getCurrentAuthInfo = function () {
         var authData = ref.getAuth();

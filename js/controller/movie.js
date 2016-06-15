@@ -4,22 +4,28 @@
 (function(){
 angular.module('movieflix').controller('MovieController',MovieController);
 
-    function MovieController(moviesList,topRatedList,moviesNowPlaying) {
+    function MovieController(moviesList,topRatedList,moviesNowPlaying,$routeParams) {
         var movieVm = this;
         console.dir('Inside MovieController:');
-        movieVm.usersListT = moviesList.results;
+        movieVm.popularListM = moviesList.results;
+        movieVm.topRatedListM = topRatedList.results;
+        movieVm.moviesNowPlayingM = moviesNowPlaying.results;
+
         console.log("Finally");
         console.dir(moviesList.results)
-        var finalList = [];
+        var s = [moviesList,topRatedList,moviesNowPlaying];
+        movieVm.totalMovies = [];
+        for(var i = 0; i < s.length ; i++){
 
-        // for( var i = 0 ;i < movieVmList.length ; i++){
-        //     finalList.push(movieVmList[i]);
-        // }
-        //
-        // console.log(finalList)
-        //
-        // for(var m in finalList){
-        //     console.log(m.adult)
-        // }
+            console.log(s[i].results.length)
+            for(var j = 0; j < s[i].results.length ; j ++){
+                movieVm.totalMovies.push(s[i].results[j])
+            }
+        }
+            console.dir(movieVm.totalMovies);
+
+        console.log($routeParams.id);
+       
+        
     }
 })()

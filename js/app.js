@@ -31,7 +31,50 @@
                        return Auth.$requireAuth();
                    }]
                }
-           })
+           }).when('/allmovies',{
+           templateUrl: 'movieindex.html',
+           controller: 'MovieController',
+           controllerAs:'movieVm',
+           resolve:{
+               user: function (RegisterService) {
+                   return RegisterService.getCurrentAuthInfo();
+               },
+               moviesList:function (MovieService) {
+                   return MovieService.getMoviesList();
+               },
+               topRatedList:function(MovieService){
+                   return MovieService.getTopRated();
+               },
+               moviesNowPlaying: function (MovieService) {
+                   return MovieService.getNowPlaying();
+               },
+               "currentAuth": ["Auth", function(Auth) {
+                   return Auth.$requireAuth();
+               }]
+           }
+
+       }).when('/movie',{
+           templateUrl: 'movie.html',
+           controller: 'PlayControl',
+           controllerAs:'playVm',
+           resolve:{
+               user: function (RegisterService) {
+                   return RegisterService.getCurrentAuthInfo();
+               },
+               moviesList:function (MovieService) {
+                   return MovieService.getMoviesList();
+               },
+               topRatedList:function(MovieService){
+                   return MovieService.getTopRated();
+               },
+               moviesNowPlaying: function (MovieService) {
+                   return MovieService.getNowPlaying();
+               },
+               "currentAuth": ["Auth", function(Auth) {
+                   return Auth.$requireAuth();
+               }]
+           }
+       })
     });
 
     app.run(["$rootScope", "$location", function($rootScope, $location) {
@@ -39,7 +82,7 @@
             // We can catch the error thrown when the $requireAuth promise is rejected
             // and redirect the user back to the home page
             if (error === "AUTH_REQUIRED") {
-                $location.path("/login.html");
+                $location.path("/");
             }
         });
     }]);

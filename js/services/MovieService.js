@@ -3,7 +3,7 @@
  */
 angular.module('movieflix').factory('MovieService',MovieService);
 
-function MovieService( $http, $q){
+function MovieService( $http, $q,RegisterService){
 
     var self = this;
     self.getMoviesList = function () {
@@ -13,6 +13,9 @@ function MovieService( $http, $q){
                 deferred.resolve(res.data)
                 console.log("MovieList");
                 console.log(res.data)
+                console.log(RegisterService.getCurrentAuthInfo());
+                // ref.unauth();
+
             }).catch(function (e) {
                 deferred.reject(e.data)
         });
@@ -46,6 +49,8 @@ function MovieService( $http, $q){
         return deferred.promise;
     }
 
+    
+    
     
 
     self.getContinueWatching = function () {

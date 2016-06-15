@@ -4,15 +4,22 @@
 (function(){
 angular.module("movieflix").controller('LoginController', ['$scope','RegisterService', LoginController]);
 
+    var ref = new Firebase("https://resplendent-heat-5158.firebaseIO.com");
 
 function LoginController($scope, RegisterService) {
     var loginVm = this;
     loginVm.userCreation = userCreation;
     loginVm.userAuth = userAuth;
-    
-    console.log(RegisterService.getCurrentAuthInfo());
+    // console.log(RegisterService.getCurrentAuthInfo());
 
-    console.log(RegisterService);
+
+
+    // console.log(RegisterService);
+    
+    loginVm.logoutUserOut = function () {
+        console.log("logout");
+        RegisterService.logUserOut();
+    }
 
     loginVm.hello = function () {
         RegisterService.addUserToServer(loginVm.user);
@@ -36,6 +43,7 @@ function LoginController($scope, RegisterService) {
 
     }
 
+    $scope.authUser = RegisterService.getCurrentAuthInfo();
 
 
 }
