@@ -3,18 +3,18 @@
  */
 (function(){
 angular.module("movieflix")
-        .service("RegisterService",RegisterService);
+        .factory("RegisterService",['$firebaseObject', '$location', RegisterService]); //['$scope','RegisterService', '$location', LoginController]
 
     var ref = new Firebase("https://resplendent-heat-5158.firebaseIO.com");
 
 function RegisterService($firebaseObject) {
-    var self = this;
+    // var self = this;
 
     self.logUserOut = function () {
         console.log("logging out");
         return ref.unauth();
     }
-    
+
     self.getCurrentAuthInfo = function () {
         var authData = ref.getAuth();
         if (authData) {
@@ -49,6 +49,8 @@ function RegisterService($firebaseObject) {
                 console.log("Error creating user:", error);
             } else {
                 console.log("Successfully created user account with uid:", userData.uid);
+                location.reload();
+
             }
         });
     }
@@ -66,10 +68,14 @@ function RegisterService($firebaseObject) {
                 console.log("Login Failed!", error);
             } else {
                 console.log("Authenticated successfully with payload:", authData);
+                // $location.path('/movieindex');
+                location.reload();
+                // if(!$scope.$$phase) $scope.$apply();
             }
-
-            ref.onAuth(authDataCallback);
+            // ref.onAuth(authDataCallback);
         });
+
+
     }
 
 

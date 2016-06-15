@@ -74,6 +74,8 @@
                    return Auth.$requireAuth();
                }]
            }
+       }).otherwise({
+           redirectTo: '/'
        })
     });
 
@@ -83,6 +85,8 @@
             // and redirect the user back to the home page
             if (error === "AUTH_REQUIRED") {
                 $location.path("/");
+            }else{
+                $location.path("/movieindex")
             }
         });
     }]);

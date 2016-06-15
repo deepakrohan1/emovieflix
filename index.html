@@ -47,10 +47,17 @@
         </ul>
         <div  class="form-inline pull-xs-right" ng-show="authUser"><i class="fa fa-user" aria-hidden="true"></i> {{authUser}}
             <button type="submit" class="btn btn-danger" ng-click="loginVm.logoutUserOut()">Logout</button>
+
+
             <!--<button type="submit" class="btn btn-secondary" ng-click="loginVm.userCreation()">Sign-->
                 <!--Up-->
             <!--</button>-->
         </div>
+        <div  class="form-inline pull-xs-right" ng-hide="authUser">
+        <button type="submit" data-toggle="modal" class="btn btn-danger" data-target="#loginModal"
+                class="btn btn-secondary btn-lg p-l-3 p-r-3">Login
+        </button>
+            </div>
 
         <!--<form class="form-inline pull-xs-right">-->
             <!--<div class="input-group">-->
@@ -136,7 +143,8 @@
 <script src="js/controller/play.js"></script>
 <script src="js/services/RegisterService.js"></script>
 <script src="js/services/MovieService.js"></script>
-COPY
+<!--/Jumbotron-->
+
 
 </body>
 </html>
