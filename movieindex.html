@@ -1,7 +1,20 @@
 <br/>
-<div class="card-deck-wrapper ">
+<div class="m-t-3">
+
+    <h2>All</h2>
+    <form class="form-inline pull-xs-right">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="movieVm.searchText.original_title" placeholder="Search for...">
+        </div>
+    </form>
+
+</div>
+
+
+
+<div class="card-deck-wrapper m-t-3">
     <div class="">
-        <div ng-repeat="movie in movieVm.totalMovies">
+        <div ng-repeat="movie in movieVm.totalMovies | filter:movieVm.searchText">
             <div class="col-md-3">
                 <div class="card card-inverse card-info text-xs-center">
                     <img class="card-img-top img-responsive img-fluid"

@@ -1,8 +1,13 @@
 <br/>
-hhkjkj
+<br/>
+<div class="m-t-3">
+
+    <h2>Popular</h2>
+
+</div>
 <div class="card-deck-wrapper ">
     <div class="">
-        <div ng-repeat="movie in movieVm.popularListM">
+        <div ng-repeat="movie in movieVm.popularListMS">
             <div class="col-md-3">
             <div class="card card-inverse card-info text-xs-center">
                 <img class="card-img-top img-responsive img-fluid"
@@ -10,7 +15,7 @@ hhkjkj
                      alt="Card image cap">
                 <div class="card-block">
                     <h6 class="card-title">{{movie.original_title | limitTo:20}}</h6>
-                    <p class="card-text">{{movie.overvew|limitTo:50}}...</p>
+                    <p class="card-text">{{movie.overview|limitTo:50}}...</p>
                     <p class="card-text">
                         <i class="fa fa-star " aria-hidden="true"></i>
                         <small class="text-muted">{{movie.vote_average}}</small><br/><br/>
@@ -22,3 +27,62 @@ hhkjkj
         </div>
     </div>
 </div></div>
+<hr/>
+<div class="m-t-3">
+
+    <h2>Top Movies</h2>
+
+</div>
+
+<div class="card-deck-wrapper ">
+    <div class="">
+        <div ng-repeat="movie in movieVm.topRatedListMS">
+            <div class="col-md-3">
+                <div class="card card-inverse card-info text-xs-center">
+                    <img class="card-img-top img-responsive img-fluid"
+                         src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}?api_key=458bc9bdea6b70202ac17765b0364d7e"
+                         alt="Card image cap">
+                    <div class="card-block">
+                        <h6 class="card-title">{{movie.original_title | limitTo:20}}</h6>
+                        <p class="card-text">{{movie.overview|limitTo:50}}...</p>
+                        <p class="card-text">
+                            <i class="fa fa-star " aria-hidden="true"></i>
+                            <small class="text-muted">{{movie.vote_average}}</small><br/><br/>
+                            <a href="#/movie?id={{movie.id}}" class="card-link btn btn-success-outline">Trailer</a>
+                            <a href="#/movie?id={{movie.id}}" class="card-link btn btn-primary-outline">Watch Movie</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></div>
+<hr/>
+
+<div class="m-t-3">
+
+    <h2>Playing</h2>
+
+</div>
+
+<div class="card-deck-wrapper ">
+    <div class="">
+        <div ng-repeat="movie in movieVm.moviesNowPlayingMS">
+            <div class="col-md-3">
+                <div class="card card-inverse card-info text-xs-center">
+                    <img class="card-img-top img-responsive img-fluid"
+                         src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}?api_key=458bc9bdea6b70202ac17765b0364d7e"
+                         alt="Card image cap">
+                    <div class="card-block">
+                        <h6 class="card-title">{{movie.original_title | limitTo:20}}</h6>
+                        <p class="card-text">{{movie.overview|limitTo:50}}...</p>
+                        <p class="card-text">
+                            <i class="fa fa-star " aria-hidden="true"></i>
+                            <small class="text-muted">{{movie.vote_average}}</small><br/><br/>
+                            <a href="#/movie?id={{movie.id}}" class="card-link btn btn-success-outline">Trailer</a>
+                            <a href="#/movie?id={{movie.id}}" class="card-link btn btn-primary-outline">Watch Movie</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></div>

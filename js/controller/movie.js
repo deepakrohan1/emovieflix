@@ -10,9 +10,13 @@ angular.module('movieflix').controller('MovieController',MovieController);
         movieVm.popularListM = moviesList.results;
         movieVm.topRatedListM = topRatedList.results;
         movieVm.moviesNowPlayingM = moviesNowPlaying.results;
+        
 
-        console.log("Finally");
-        console.dir(moviesList.results)
+        movieVm.popularListMS = movieVm.popularListM.splice(0,4);
+        movieVm.topRatedListMS = movieVm.topRatedListM.splice(0,4);
+        movieVm.moviesNowPlayingMS = movieVm.moviesNowPlayingM.splice(0,4);
+        console.log("Concat");
+        // console.dir(popularListMS.length)
         var s = [moviesList,topRatedList,moviesNowPlaying];
         movieVm.totalMovies = [];
         for(var i = 0; i < s.length ; i++){
@@ -24,7 +28,12 @@ angular.module('movieflix').controller('MovieController',MovieController);
         }
             console.dir(movieVm.totalMovies);
 
-        console.log($routeParams.id);
+        console.log($routeParams.i);
+
+        if(1 === parseInt($routeParams.i)){
+            $scope.paramsSearch = 1
+        }
+
        
         
     }
