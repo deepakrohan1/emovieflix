@@ -28,11 +28,8 @@ angular.module('movieflix').controller('MovieController',MovieController);
         }
             console.dir(movieVm.totalMovies);
 
-        console.log($routeParams.i);
+        
 
-        if(1 === parseInt($routeParams.i)){
-            $scope.paramsSearch = 1
-        }
 
        
         

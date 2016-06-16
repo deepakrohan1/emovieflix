@@ -74,6 +74,27 @@
                    return Auth.$requireAuth();
                }]
            }
+       }).when('/categories',{
+           templateUrl: 'categorized.html',
+           controller: 'CategoryController',
+           controllerAs:'catVm',
+           resolve:{
+               user: function (RegisterService) {
+                   return RegisterService.getCurrentAuthInfo();
+               },
+               moviesList:function (MovieService) {
+                   return MovieService.getMoviesList();
+               },
+               topRatedList:function(MovieService){
+                   return MovieService.getTopRated();
+               },
+               moviesNowPlaying: function (MovieService) {
+                   return MovieService.getNowPlaying();
+               },
+               "currentAuth": ["Auth", function(Auth) {
+                   return Auth.$requireAuth();
+               }]
+           }
        }).otherwise({
            redirectTo: '/'
        })
