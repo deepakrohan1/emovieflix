@@ -100,7 +100,7 @@
                                    class="col-sm-2 form-control-label">Password</label>
                             <div class="col-sm-6">
                                 <input type="password" ng-model="loginVm.user.password"
-                                       name="passwordOfUser"
+                                       name="passwordOfUserAuth"
                                        required
                                        ng-minlength="6"
                                        class="form-control" id="passwordAuth" placeholder="Password">
@@ -111,7 +111,7 @@
                             <p ng-message="minlength" class="alert alert-danger" role="alert">It should be 5 chars long.</p>
                         </div>
 
-                        <div ng-messages="loginForm.passwordOfUser.$dirty && loginForm.passwordOfUser.$error">
+                        <div ng-messages="loginForm.passwordOfUserAuth.$dirty && loginForm.passwordOfUserAuth.$error">
                             <p ng-message="required" class="alert alert-danger"  role="alert">Enter the password</p>
                             <p ng-message="minlength" class="alert alert-danger" role="alert">It should be 6 chars long.</p>
                         </div>
@@ -141,18 +141,15 @@
                     <h4 class="modal-title" id="signUpModalLabel"> Sign Up </h4>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group row">
-                            <label for="nameOfUser" class="col-sm-2 form-control-label">Name</label>
-                            <div class="col-sm-6">
-                                <input ng-required="true" ng-model="loginVm.user.name" class="form-control"
-                                       id="nameOfUser" placeholder="Name">
-                            </div>
-                        </div>
+                    <form name="signUp" id="signUpAuth">
                         <div class="form-group row">
                             <label for="emailOfUser" class="col-sm-2 form-control-label">Email</label>
                             <div class="col-sm-6">
-                                <input type="email" class="form-control" ng-model="loginVm.user.email" id="emailOfUser"
+                                <input type="email" class="form-control" ng-model="loginVm.user.email"
+                                       id="emailOfUser"
+                                       required
+                                       ng-minlength="5"
+                                       name="emailOfUser"
                                        placeholder="Email">
                             </div>
                         </div>
@@ -160,19 +157,28 @@
                             <label for="password" class="col-sm-2 form-control-label">Password</label>
                             <div class="col-sm-6">
                                 <input type="password" class="form-control" ng-model="loginVm.user.password"
-                                       id="password" placeholder="Password">
+                                       id="password"
+                                       required
+                                       ng-minlength="5"
+                                       name="passCode"
+                                       placeholder="Password">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="confirmPassword" class="col-sm-2 form-control-label">Confirm Password</label>
-                            <div class="col-sm-6">
-                                <input type="password" class="form-control" ng-model="loginVm.user.cPassword"
-                                       id="confirmPassword" placeholder="Confirm Password">
-                            </div>
+
+
+                        <div ng-messages="signUp.emailOfUser.$dirty && signUp.emailOfUser.$error">
+                            <p ng-message="required" class="alert alert-danger" role="alert">Your Email is required.</p>
+                            <p ng-message="minlength" class="alert alert-danger" role="alert">It should be 5 chars long.</p>
                         </div>
+
+                        <div ng-messages="signUp.passCode.$dirty && signUp.passCode.$error">
+                            <p ng-message="required" class="alert alert-danger"  role="alert">Enter the password</p>
+                            <p ng-message="minlength" class="alert alert-danger" role="alert">It should be 6 chars long.</p>
+                        </div>
+
                         <div class="form-group row">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-secondary" ng-click="loginVm.userCreation()">Sign
+                                <button ng-disabled="signUp.$invalid" type="submit" class="btn btn-secondary" ng-click="loginVm.userCreation()">Sign
                                     Up
                                 </button>
                             </div>
