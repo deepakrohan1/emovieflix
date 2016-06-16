@@ -47,6 +47,9 @@ function RegisterService($firebaseObject) {
         }, function(error, userData) {
             if (error) {
                 console.log("Error creating user:", error);
+                alert(error);
+                location.reload();
+
             } else {
                 console.log("Successfully created user account with uid:", userData.uid);
                 location.reload();
@@ -66,6 +69,8 @@ function RegisterService($firebaseObject) {
         }, function(error, authData) {
             if (error) {
                 console.log("Login Failed!", error);
+                alert(error);
+                location.reload();
             } else {
                 console.log("Authenticated successfully with payload:", authData);
                 // $location.path('/movieindex');
