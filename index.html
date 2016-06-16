@@ -1,14 +1,20 @@
 <!doctype html>
-<html>
+<html ng-app="movieflix">
 <head>
     <!--Required bootstrap files to get started-->
+    <link type="text/css" rel="stylesheet" href="css/application.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="css/application.css"/>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"
             integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7"
             crossorigin="anonymous"></script>
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.9/angular.js"
+            data-semver="1.4.9"></script>
+    <script src="https://code.angularjs.org/1.4.9/angular-messages.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.js"></script>
+
     <title>
         MovieFlix
     </title>
@@ -16,7 +22,7 @@
 
 <body>
 <!--Nav Bar-->
-<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top" ng-controller="LoginController as loginVm">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="index.html">
@@ -27,402 +33,49 @@
 
         <ul class="nav navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#" ng-hide="authUser">Features</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="#/movieindex" ng-show="authUser">Movies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#/allmovies" ng-show="authUser">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" ng-hide="authUser">Pricing</a>
+            </li>
+            <li class="nav-item" ng-controller="AboutController">
+                <a class="nav-link" ng-click="goToAbout()" >About</a>
             </li>
         </ul>
-        <form class="form-inline pull-xs-right">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-danger" type="button">Go!</button>
-                  </span>
+        <div  class="form-inline pull-xs-right" ng-show="authUser"><i class="fa fa-user" aria-hidden="true"></i> {{authUser}}
+            <button type="submit" class="btn btn-danger" ng-click="loginVm.logoutUserOut()">Logout</button>
+
+
+            <!--<button type="submit" class="btn btn-secondary" ng-click="loginVm.userCreation()">Sign-->
+                <!--Up-->
+            <!--</button>-->
+        </div>
+        <div  class="form-inline pull-xs-right" ng-hide="authUser">
+        <button type="submit" data-toggle="modal" class="btn btn-danger" data-target="#loginModal"
+                class="btn btn-secondary btn-lg p-l-3 p-r-3">Login
+        </button>
             </div>
-        </form>
+
+
     </div>
 </nav>
 <!--/Nav-->
-<!--Jumbotron-->
-<div class="jumbotron jumbotron-fluid bg-info">
-    <div class="container text-sm-center p-t-3">
-        <h1 class="display-2">SignUp Today..</h1>
-        <p class="lead">Integer sapien justo, dignissim id dapibus ut, porta condimentum nisl.
-            Cras vehicula a sem eu ornare. Integer condimentum nisi nibh, eu vulputate quam rutrum at.
-            Cras arcu massa, pretium sit amet dapibus vel, aliquam eu purus. Ut condimentum gravida laoreet. </p>
 
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" onclick="location.href='signup.html';" class="btn btn-primary btn-lg">Register Now</button>
-            <button type="button" onclick="location.href='login.html';" class="btn btn-secondary btn-lg p-l-3 p-r-3">Login</button>
 
-        </div>
-    </div>
+
+
+<div class="container-fluid col-sm-12" ng-view></div>
+<div ng-Controller="LoginController">
 </div>
-
-<!--/Jumbotron-->
-<!--Carousel for the intro-->
-<div class="container-fluid col-sm-12">
-    <div id="movie-carousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#movie-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#movie-carousel" data-slide-to="1"></li>
-            <li data-target="#movie-carousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <img src="images/1.jpg" class="cara" alt="First slide">
-                <div class="carousel-caption">
-                    <h3>Civil War</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius ornare libero, in blandit
-                        mauris ullamcorper eu. Sed ut risus quis nisl placerat posuere. Nam dictum luctus dui, sit
-                        amet pharetra</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/3.png" class="cara" alt="Second slide">
-                <div class="carousel-caption">
-                    <h3>Monsters Inc.</h3>
-                    <p>Aliquam eu purus suscipit, tempus sem maximus, auctor eros. Praesent aliquet lorem leo, id
-                        molestie nisl tempus et. Sed ornare nulla eu sapien facilisis posuere.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/4.jpg" class="cara" alt="Third slide">
-                <div class="carousel-caption">
-                    <h3>Iron Man</h3>
-                    <p>Vestibulum non lacinia magna. Sed semper purus sagittis, ornare mauris sed, lacinia ipsum.
-                        Proin semper est ac velit dictum rutrum. </p>
-                </div>
-            </div>
-        </div>
-
-        <a class="left carousel-control" href="#movie-carousel" role="button" data-slide="prev">
-            <span class="icon-prev" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#movie-carousel" role="button" data-slide="next">
-            <span class="icon-next" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</div>
-<!--Recent Arrivals-->
-<div class="container-fluid col-sm-12 m-t-2">
-    <h1 class="display-4">Recent Arrivals</h1>
-    <div class="row m-t-2">
-        <div class="card-deck-wrapper">
-            <div class="card-group">
-                <div class="col-md-3 col-lg-2">
-                    <div class="card">
-                        <img class="card-img-top img-fluid frames" src="images/1.jpg" alt="Card image cap">
-                        <div class="card-block">
-                            <h4 class="card-title text-xs-center">Civil War</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-lg-2">
-                    <div class="card">
-                        <img class="card-img-top img-fluid frames" src="images/3.png" alt="Card image cap">
-                        <div class="card-block">
-                            <h4 class="card-title text-xs-center">Monsters Inc</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-lg-2">
-                    <div class="card">
-                        <img class="card-img-top img-fluid frames" src="images/4.jpg" height="211" width="auto"
-                             alt="Card image cap">
-                        <div class="card-block">
-                            <h4 class="card-title text-xs-center">Civil War 2</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-lg-2">
-                    <div class="card">
-                        <img class="card-img-top img-fluid frames" src="images/5.jpg" alt="Card image cap">
-                        <div class="card-block">
-                            <h4 class="card-title text-xs-center">Trasalvania</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-lg-2">
-                    <div class="card">
-                        <img class="card-img-top img-fluid frames " src="images/6.jpg" alt="Card image cap">
-                        <div class="card-block">
-                            <h4 class="card-title text-xs-center">Avengers</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-lg-2">
-                    <div class="card">
-                        <img class="card-img-top img-fluid frames" src="images/7.jpg" alt="Card image cap">
-                        <div class="card-block">
-                            <h4 class="card-title text-xs-center">Hugo</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-offset-10 col-md-2 m-t-1">
-            <button type="button" class="btn btn-info-outline lg">View More..</button>
-
-        </div>
-
-    </div>
-    <hr/>
-
-    <h1 class="display-4">Most Watched</h1>
-    <div class="row">
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Civil War</h4>
-                    <h6 class="card-subtitle text-muted">Action</h6>
-                </div>
-                <img src="images/7.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit
-                       venenatis vel in mi. Pellentesque condimentum .</p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Monsters Inc</h4>
-                    <h6 class="card-subtitle text-muted">Comedy</h6>
-                </div>
-                <img src="images/3.png" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Iron Man</h4>
-                    <h6 class="card-subtitle text-muted">action</h6>
-                </div>
-                <img src="images/4.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Batman Vs Superman</h4>
-                    <h6 class="card-subtitle text-muted">Action</h6>
-                </div>
-                <img src="images/5.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Dead Pool</h4>
-                    <h6 class="card-subtitle text-muted">Action, Comedy</h6>
-                </div>
-                <img src="images/6.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Resident Evil</h4>
-                    <h6 class="card-subtitle text-muted">Action</h6>
-                </div>
-                <img src="images/7.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Resident Evil</h4>
-                    <h6 class="card-subtitle text-muted">Action</h6>
-                </div>
-                <img src="images/7.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Hugo</h4>
-                    <h6 class="card-subtitle text-muted">Drama</h6>
-                </div>
-                <img src="images/clip.png" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xs-offset-10 col-md-2 m-t-1">
-        <button type="button" class="btn btn-info-outline lg">View More..</button>
-
-    </div>
-    <hr/>
-
-    <h1 class="display-4">Trending</h1>
-    <div class="row">
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Avengers</h4>
-                    <h6 class="card-subtitle text-muted">Action</h6>
-                </div>
-                <img src="images/1.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Test</h4>
-                    <h6 class="card-subtitle text-muted">comedy</h6>
-                </div>
-                <img src="images/3.png" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Movie</h4>
-                    <h6 class="card-subtitle text-muted">comedy</h6>
-                </div>
-                <img src="images/5.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Death at funeral</h4>
-                    <h6 class="card-subtitle text-muted">comedy</h6>
-                </div>
-                <img src="images/6.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Top Gun</h4>
-                    <h6 class="card-subtitle text-muted">action</h6>
-                </div>
-                <img src="images/7.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Jungle book</h4>
-                    <h6 class="card-subtitle text-muted">comedy</h6>
-                </div>
-                <img src="images/8.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Name</h4>
-                    <h6 class="card-subtitle text-muted">action</h6>
-                </div>
-                <img src="images/9.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-lg-3">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Holly</h4>
-                    <h6 class="card-subtitle text-muted">comedy</h6>
-                </div>
-                <img src="images/10.jpg" class="frames img-fluid" alt="Card image">
-                <div class="card-block">
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl eget nisi blandit venenatis vel in mi. Pellentesque condimentum </p>
-                    <a href="#" class="card-link btn btn-success-outline">Trailer</a>
-                    <a href="#" class="card-link btn btn-primary-outline">Watch Movie</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-xs-offset-10 col-md-2 m-t-1">
-    <button type="button" class="btn btn-info-outline lg">View More..</button>
-
-</div>
-<hr/>
-<!--/Recent Arrivals-->
 <!--About-->
 <div class="container-fluid col-sm-12">
     <hr/>
@@ -443,8 +96,9 @@
 </div>
 <!--/About-->
 
+
 <!--End of the Carousel for movies-->
-<div class="container-fluid col-sm-12" >
+<div class="container-fluid col-sm-12">
     <!--footer-->
     <div class="row p-y-2">
         <div class="col-md-7">
@@ -463,5 +117,40 @@
     </div>
     <!--/footer-->
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script>
+
+    $(".nav a").on("click", function(){
+        $(".nav").find(".active").removeClass("active");
+        $(this).parent().addClass("active");
+    });
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAkyAjVzVawcmQSrGx0vxsP-FiWtPal0Zk",
+        authDomain: "project-7740001562466812153.firebaseapp.com",
+        databaseURL: "https://project-7740001562466812153.firebaseio.com",
+        storageBucket: "",
+    };
+    firebase.initializeApp(config);
+</script>
+<!-- Firebase -->
+<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+<script src="https://use.fontawesome.com/f2e6e1c932.js"></script>
+<script src="js/validation.js"></script>
+<!--Start of Angular Scripts notice the order-->
+<script src="js/app.js"></script>
+<script src="js/controller/login.js"></script>
+<script src="js/controller/movie.js"></script>
+<script src="js/controller/play.js"></script>
+<script src="js/controller/about.js"></script>
+<script src="js/controller/categorized.js"></script>
+<script src="js/services/RegisterService.js"></script>
+<script src="js/services/MovieService.js"></script>
+<!--/Jumbotron-->
+
+
 </body>
 </html>
